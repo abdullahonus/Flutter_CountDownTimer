@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
 
 class FinalView extends StatefulWidget {
   const FinalView({super.key});
@@ -29,20 +31,26 @@ class _FinalViewState extends State<FinalView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurpleAccent,
-        centerTitle: true,
-        title: Column(
-          children: const [
-            Text(
-              "Count Down Timer",
+          backgroundColor: const Color(0xff253439),
+          centerTitle: true,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: CircleAvatar(
+              backgroundColor: Colors.transparent,
+              child: Image.asset("assets/c4.png"),
             ),
-            Text(
-              "@CodeWithFlexz",
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
+          ),
+          actions: const [
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Center(
+                child: Text(
+                  "@Countrol4offical",
+                  style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
+                ),
+              ),
             ),
-          ],
-        ),
-      ),
+          ]),
       body: AnimatedBuilder(
           animation: controller,
           builder: (context, child) {
@@ -50,11 +58,71 @@ class _FinalViewState extends State<FinalView> with TickerProviderStateMixin {
               children: [
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: Container(
-                    color: Colors.deepPurpleAccent,
-                    height:
-                        controller.value * MediaQuery.of(context).size.height,
+                  child: WaveWidget(
+                    config: CustomConfig(
+                      colors: [
+                        const Color(0xffB29E84).withOpacity(0.3),
+                        const Color(0xffB29E84).withOpacity(0.3),
+                        const Color(0xffB29E84).withOpacity(0.4),
+                        //the more colors here, the more wave will be
+                      ],
+                      durations: [4000, 5000, 7000],
+                      heightPercentages: [0.01, 0.05, 0.03],
+                      blur: const MaskFilter.blur(BlurStyle.solid, 5),
+                    ),
+                    waveAmplitude: 35.00, //depth of curves
+                    waveFrequency: 3, //number of curves in waves
+                    //background colors
+                    size: Size(
+                      double.infinity,
+                      controller.value * MediaQuery.of(context).size.height,
+                    ),
                   ),
+                ),
+                Positioned(
+                  top: 100,
+                  right: 150,
+                  left: 150,
+                  child: AnimatedBuilder(
+                      animation: controller,
+                      builder: (context, child) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: FloatingActionButton.extended(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      controller.isAnimating ? 10 : 20)),
+                              backgroundColor: controller.isAnimating
+                                  ? Colors.white
+                                  : const Color(0xff253439),
+                              onPressed: () {
+                                if (controller.isAnimating) {
+                                  controller.stop();
+                                } else {
+                                  controller.reverse(
+                                      from: controller.value == 0.0
+                                          ? 1.0
+                                          : controller.value);
+                                }
+                              },
+                              icon: Icon(
+                                controller.isAnimating
+                                    ? Icons.pause
+                                    : Icons.play_arrow,
+                                color: !controller.isAnimating
+                                    ? Colors.white
+                                    : const Color(0xff253439),
+                              ),
+                              label: Text(
+                                controller.isAnimating ? "Pause" : "Play",
+                                style: TextStyle(
+                                  color: !controller.isAnimating
+                                      ? Colors.white
+                                      : const Color(0xff253439),
+                                ),
+                              )),
+                        );
+                      }),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -73,11 +141,11 @@ class _FinalViewState extends State<FinalView> with TickerProviderStateMixin {
                                     padding: const EdgeInsets.all(30.0),
                                     child: CircularProgressIndicator(
                                       color: controller.value < 0.4821094
-                                          ? Colors.deepPurpleAccent
+                                          ? const Color(0xff253439)
                                           : Colors.white,
                                       backgroundColor: controller.isAnimating
                                           ? const Color.fromARGB(74, 0, 0, 0)
-                                          : Colors.deepPurpleAccent,
+                                          : const Color(0xffB29E84),
                                       strokeWidth: 20,
                                       value: controller.value,
                                     ),
@@ -96,7 +164,7 @@ class _FinalViewState extends State<FinalView> with TickerProviderStateMixin {
                                         style: TextStyle(
                                             fontSize: 112.0,
                                             color: controller.value < 0.4821094
-                                                ? Colors.deepPurpleAccent
+                                                ? const Color(0xff253439)
                                                 : Colors.white),
                                       ),
                                     ],
@@ -107,46 +175,6 @@ class _FinalViewState extends State<FinalView> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      AnimatedBuilder(
-                          animation: controller,
-                          builder: (context, child) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: FloatingActionButton.extended(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          controller.isAnimating ? 10 : 20)),
-                                  backgroundColor: controller.isAnimating
-                                      ? Colors.white
-                                      : Colors.deepPurpleAccent,
-                                  onPressed: () {
-                                    if (controller.isAnimating) {
-                                      controller.stop();
-                                    } else {
-                                      controller.reverse(
-                                          from: controller.value == 0.0
-                                              ? 1.0
-                                              : controller.value);
-                                    }
-                                  },
-                                  icon: Icon(
-                                    controller.isAnimating
-                                        ? Icons.pause
-                                        : Icons.play_arrow,
-                                    color: !controller.isAnimating
-                                        ? Colors.white
-                                        : Colors.deepPurpleAccent,
-                                  ),
-                                  label: Text(
-                                    controller.isAnimating ? "Pause" : "Play",
-                                    style: TextStyle(
-                                      color: !controller.isAnimating
-                                          ? Colors.white
-                                          : Colors.deepPurpleAccent,
-                                    ),
-                                  )),
-                            );
-                          }),
                     ],
                   ),
                 ),

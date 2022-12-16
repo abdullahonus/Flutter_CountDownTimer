@@ -8,9 +8,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const  MaterialApp(
-      title: 'Countrol4',
-      home:  FinalView()
-    );
+    return const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Countrol4',
+        home: FinalView());
   }
 }
