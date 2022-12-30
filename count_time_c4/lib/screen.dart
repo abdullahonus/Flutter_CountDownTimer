@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
+////////////////////////////////////////////
+  ///follow For more ig: @Countrol4offical
+  ///@countrolfour@gmail.com
+////////////////////////////////////////////
+
 class FinalView extends StatefulWidget {
   const FinalView({super.key});
 
@@ -184,3 +189,8 @@ class _FinalViewState extends State<FinalView> with TickerProviderStateMixin {
     );
   }
 }
+
+////////////////////////////////////////////
+  ///follow For more ig: @Countrol4offical
+  ///@countrolfour@gmail.com
+////////////////////////////////////////////
